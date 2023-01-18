@@ -12,8 +12,9 @@ public class UserController {
         this.repository = repository;
     }
 
-    public void saveUser(User user) {
-        repository.CreateUser(user);
+    public void saveUser(User user) throws Exception{
+        validateUser(user);
+        repository.createUser(user);
     }
 
     public User readUser(String userId) throws Exception {
@@ -25,5 +26,41 @@ public class UserController {
         }
 
         throw new Exception("User not found");
+    }
+
+    public List<User> readList() {
+        List<User> result = repository.getAllUsers();
+        return result;
+    }
+
+    public void updUser(String idNumber, User newGue) throws Exception {
+        idPresenceValidation(idNumber);
+        newGue.setId(idNumber);
+        validateUserId(newGue);
+        repository.updUser(newGue);
+
+    }
+
+    private void validateUser(User user) throws Exception {
+
+        if (user.getFirstName().isEmpty()) throw new Exception("User has no FirstName");
+        if (user.getLastName().isEmpty()) throw new Exception("User has no LastName");
+        if (user.getFirstName().contains(" ")) throw new Exception("User name has unacceptable characters");
+        if (user.getLastName().contains(" ")) throw new Exception("User name has unacceptable characters");
+        if (user.getPhone().isEmpty()) throw new Exception("User lastname has unacceptable characters");
+
+    }
+    private void validateUserId (User user) throws Exception {
+        if (user.getId().isEmpty()) throw new Exception("User has no id");
+        validateUser(user);
+    }
+
+    public void idPresenceValidation (String inputId) throws Exception {
+        List<User> users = repository.getAllUsers();
+        for (User u : users){
+            if(u.getId().equals(inputId))
+                return;
+        }
+        throw new Exception("No such Id here");
     }
 }
