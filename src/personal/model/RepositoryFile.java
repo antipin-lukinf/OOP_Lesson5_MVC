@@ -16,7 +16,7 @@ public class RepositoryFile implements Repository {
         List<String> lines = fileOperation.readAllLines();
         List<User> users = new ArrayList<>();
         for (String line : lines) {
-            users.add(mapper.map(line));
+            users.add(mapper.mapToComma(line));
         }
         return users;
     }

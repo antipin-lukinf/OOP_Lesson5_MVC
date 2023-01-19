@@ -34,8 +34,7 @@ public class UserController {
     }
 
     public List<User> readList() {
-        List<User> result = repository.getAllUsers();
-        return result;
+        return repository.getAllUsers();
     }
 
     public void updUser(String idNumber, User newGue) throws Exception {

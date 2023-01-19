@@ -10,12 +10,16 @@ public class UserMapper {
     }
 
     public User map(String line) {
-        String[] lines = line.split(";");
+        String[] lines = line.split("[;]");
         return new User(lines[0], lines[1], lines[2], lines[3], lines[4]);
     }
 
     public User mapToComma(String line) {
-        String[] lines = line.split(",");
+//        if(line.equals("")){
+//            return new User();
+//        }
+        String[] lines = line.split("[,;]");
         return new User(lines[0], lines[1], lines[2], lines[3], lines[4]);
+
     }
 }

@@ -24,6 +24,10 @@ public class User {
         this.id = id;
     }
 
+    public User() {
+
+    }
+
     public String getId() {
         return id;
     }
@@ -68,4 +72,5 @@ public class User {
     public void setCheck(String check) {
         this.check = check;
     }
+    //sjd
 }
