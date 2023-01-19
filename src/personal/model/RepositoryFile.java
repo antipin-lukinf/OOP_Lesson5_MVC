@@ -22,19 +22,20 @@ public class RepositoryFile implements Repository {
     }
 
     @Override
-    public String createUser(User user) {
+    public String createUser(User user, String command) {
 
         List<User> users = getAllUsers();
         int max = 0;
         for (User item : users) {
             int id = Integer.parseInt(item.getId());
-            if (max < id){
+            if (max < id) {
                 max = id;
             }
         }
         int newId = max + 1;
         String id = String.format("%d", newId);
         user.setId(id);
+        user.setCheck(command);
         users.add(user);
         writeDown(users);
         return id;
@@ -51,10 +52,24 @@ public class RepositoryFile implements Repository {
         writeDown(users);
     }
 
-    private void writeDown (List<User> users){
+    @Override
+    public void delitUser(String id) {
+        List<User> users = getAllUsers();
+        User target = users.stream().filter(i -> i.getId().equals(id)).findFirst().get();
+        users.remove(target);
+        writeDown(users);
+
+
+    }
+
+    private void writeDown(List<User> users) {
         List<String> lines = new ArrayList<>();
-        for (User item: users) {
-            lines.add(mapper.map(item));
+        for (User item : users) {
+            if (item.getCheck().equals("1")) {
+                lines.add(mapper.mapToComma(item));
+            } else {
+                lines.add(mapper.map(item));
+            }
         }
         fileOperation.saveAllLines(lines);
     }

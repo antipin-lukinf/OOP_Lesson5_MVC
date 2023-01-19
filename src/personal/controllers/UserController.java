@@ -12,9 +12,14 @@ public class UserController {
         this.repository = repository;
     }
 
-    public void saveUser(User user) throws Exception{
+    public void saveUser(User user, String command) throws Exception{
         validateUser(user);
-        repository.createUser(user);
+        repository.createUser(user, command);
+    }
+
+    public void delUser(String id) throws Exception{
+        //validateUser(id);
+        repository.delitUser(id);
     }
 
     public User readUser(String userId) throws Exception {
@@ -63,4 +68,6 @@ public class UserController {
         }
         throw new Exception("No such Id here");
     }
+
+
 }

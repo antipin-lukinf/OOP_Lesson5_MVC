@@ -3,6 +3,7 @@ package personal.views;
 import personal.controllers.UserController;
 import personal.model.User;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
@@ -27,7 +28,8 @@ public class ViewUser {
                         String firstName = prompt("Имя: ");
                         String lastName = prompt("Фамилия: ");
                         String phone = prompt("Номер телефона: ");
-                        userController.saveUser(new User(firstName, lastName, phone));
+                        String question = prompt("В каком формате сохранять?(введите 1, для сохранения с ,\n или 2, для сохранения с ;): ");
+                        userController.saveUser(new User(firstName, lastName, phone), question);
                         break;
                     case READ:
                         String id = prompt("Идентификатор пользователя: ");
@@ -45,6 +47,13 @@ public class ViewUser {
                         userController.idPresenceValidation(numId);
                         userController.updUser(numId, createAGuy());
                         break;
+                    case DELETE:
+                        String delNumId = prompt("Какой контакт удалять? Введите номер ID: ");
+                        userController.idPresenceValidation(delNumId);
+                        userController.delUser(delNumId);
+                        break;
+
+
                 }
             } catch (Exception e) {
                 System.out.println("Oopsie!\n"+e.getMessage());;
@@ -65,4 +74,5 @@ public class ViewUser {
         User newGuy = new User(firstName, lastName, phone);
         return newGuy;
     }
+
 }

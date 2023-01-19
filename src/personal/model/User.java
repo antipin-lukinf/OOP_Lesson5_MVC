@@ -5,11 +5,18 @@ public class User {
     private String firstName;
     private String lastName;
     private String phone;
+    private String check;
 
     public User(String firstName, String lastName, String phone) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.phone = phone;
+    }
+
+    public User(String id, String firstName, String lastName, String phone, String check) {
+        this(firstName, lastName, phone);
+        this.id = id;
+        this.check = check;
     }
 
     public User(String id, String firstName, String lastName, String phone) {
@@ -51,6 +58,14 @@ public class User {
 
     @Override
     public String toString() {
-        return String.format("Идентафикатор: %s\nИмя: %s,\nФамилия: %s,\nТелефон: %s", id, firstName, lastName, phone);
+        return String.format("Идентафикатор: %s\nИмя: %s\nФамилия: %s\nТелефон: %s", id, firstName, lastName, phone);
+    }
+
+    public String getCheck() {
+        return check;
+    }
+
+    public void setCheck(String check) {
+        this.check = check;
     }
 }
